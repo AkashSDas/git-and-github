@@ -18,8 +18,49 @@ In order to collaborate with other developers, you need to identify your git ide
 - git config --global user.name "Your Name" - to set your name
 - git config --global user.email "Your Email" - this is the email that will be used when you commit
 - git config --list - to see the config
+
+## git init
+
+This is the first step in creating a git repo. You can create a git repo in another directory by passing the directory as an argument to the git init command.
+
+- git init - creates a new git repo in the current directory
+- git init <directory> - to create a git repo in another directory
+
+## git add
+
+In order to take a snapshot/commit of the current state of the repo, you need to add all the files you want to commit to the staging area. This is done via the git add command.
+
+- git add . - adds all files to the staging area
+- git add <file> - adds a single file to the staging area
+- git reset . - to remove all files from the staging area
+- git reset <file> - to remove a file from the staging area
+
+## git status
+
+It's useful to know the current status of your repo.
+
+- git status - to see the status of the repo
+
+## .gitignore
+
+This is a file that tells git which files to ignore. It's useful for ignoring temporary files and other files that you don't want to commit.
+
+## git commit
+
+To commit files i.e. moving them from the staging area to the repo, you need to use the git commit command. Every commit has an unique id which is used to identify the commit and compare the changes with other commits.
+
+- git commit - to commit the changes
+- git commit -m "message" - to commit with a message
+- git commit --amend - to amend the last commit
+- git commit --amend -m "message" - to amend the last commit with a message
+
+To omit using the `git add` command to add files to the staging area use the `-a` flag in `git commit` to directly add files to the staging area.
+
+- git commit -a - to commit all files to the staging area
+- git commit -a -m "message" - to commit all files to the staging area with a message
+
   
-  ## Shortcuts
+## Shortcuts
 
 To add every change to the staging area and commit them at once with a `message`.
 ```bash
