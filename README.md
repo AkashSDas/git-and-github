@@ -1,4 +1,4 @@
-# common git commands
+# git-and-github
 
 - git init - to create a git repo
 - git add - to add files to the staging area
