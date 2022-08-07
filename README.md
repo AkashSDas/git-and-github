@@ -59,6 +59,23 @@ To omit using the `git add` command to add files to the staging area use the `-a
 - git commit -a - to commit all files to the staging area
 - git commit -a -m "message" - to commit all files to the staging area with a message
 
+## Remote repositories
+
+Git is popular option to collaborate with other developers. Popular services are Github, Bitbucket and Gitlab.
+
+- git remote - to see the list of remote repositories you have access to
+- git remote add <remote-name> <url> - to add a remote repository. Common <remote-name> value is `origin`
+- git remote -v - to see the list of remote repositories urls you have access to
+- git remote show <remote-name> - to see more details of a remote repository
+
+## git push
+
+To push the changes to the remote repository, you need to use the git push command.
+
+- git push - to push the changes to the remote repository
+- git push <remote-name> - to push the changes to the remote repository
+- git push <remote-name> <branch-name> - to push the changes to the remote repository with a branch name
+- git push <remote-name> <branch-name> -u - `u` flag to set origin repo to the upstream remote in the git config file. This allows us to use git pull command to pull from the remote repository without requiring additional arguments. You want to use the `-u` flag when remote repo is final source of truth
   
 ## Shortcuts
 
