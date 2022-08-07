@@ -10,3 +10,10 @@
 - git branch <branch-name> - to create a new branch
 - git checkout <branch-name> - to switch to a branch
 - git merge <branch-name> - to merge a branch into the current branch
+  
+  ## Shortcuts
+
+To add every change to the staging area and commit them at once with a `message`.
+```bash
+git add . && git commit -m "message"
+```
