@@ -238,6 +238,16 @@ This should only be done when you are working on you own private feature branch.
 
 Another way to think about this that `rebase` keeps your feature branch up to date with the main branch.
 
+Tip - If you are not sure whether to use rebase OR not:
+
+- Create an extra branch from your current feature branch
+- Rebase on that branch to make sure everything is working fine
+- If it is then delete the temporary branch and use rebase on the feauture branch
+
+### Squash
+
+When you have a large number of commits you can squash them into one commit. This is useful when you have a large number of commits and you want to keep a smaller number of commits.
+
 ## Shortcuts
 
 To add every change to the staging area and commit them at once with a `message`.
