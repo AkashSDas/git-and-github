@@ -248,10 +248,91 @@ Tip - If you are not sure whether to use rebase OR not:
 
 When you have a large number of commits you can squash them into one commit. This is useful when you have a large number of commits and you want to keep a smaller number of commits.
 
-## Shortcuts
+- git rebase --no-interactive - to squash the commits
 
-To add every change to the staging area and commit them at once with a `message`.
+An editor will open (maybe Vim) where you can change the from `pick` to `squash` the commits which you want to squash and then save the file. Once that is done, an another file will open to customize the commit message (you can quite it to use the default). This will rebase with the squashed commits replacing the commit you've squashed.
+
+This is the last thing you do before you submit a pull request OR merge your feature to the main branch.
+
+The `fixup` also works similar to `squash` but it discards the commit message from the commit you are squashing.
+
+## Tips and Tricks
+
+### Add and Committing
 
 ```bash
+# 💩
+
+git add .
+git commit -m "message"
+
+OR
+
 git add . && git commit -m "message"
 ```
+
+```bash
+# ✅
+git commit -am "message"
+```
+
+OR even better create aliases for you Git work.
+
+```bash
+# 🔥
+git config --global alias.ac "commit -am"
+git ac "pro way"
+```
+
+### Amend
+
+Do this only when you've not pushed your code to a remote repo.
+
+```bash
+# update the latest commit
+git commit --amend -m "updated message"
+
+# add new files to the latest commit
+git add .
+git commit --amend --no-edit
+```
+
+### Force
+
+Overwrite commit history of remote. If there are commits in remote repo which the local repo doesn't have then you'll loose them.
+
+```bash
+# ⚠️
+git push origin main --force
+```
+
+### Bisect
+
+It allows you to point at the last working commit. Then it will run a binary search to find the commit where the bug is and then you can fix it. If the commit looks good then mark it as something (good) and then move on till you find the bad one.
+
+```bash
+git bisect start
+git bisect bad
+git bisect good <SHA-id>
+git bisect bad
+```
+
+### Fixup and Squash
+
+```bash
+# fixup
+git commit --fixup <SHA-id>
+
+# squash
+git commit --squash <SHA-id>
+```
+
+The above commands tells Git in advance that you're going to squash them. So when you do rebase with `--autosquash` flag then it will squash the commits.
+
+```bash
+git rebase -i --autosquash
+```
+
+### Hooks
+
+This is useful when you want to run some commands before you commit and after you commit.
