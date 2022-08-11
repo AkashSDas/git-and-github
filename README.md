@@ -120,6 +120,13 @@ If your local code is modified in the same line of code as the code in the remot
 - git checkout <branch-name> - to switch to a branch
 - git checkout -b <branch-name> - to create a new branch and switch to it
 - git checkout - - to checkout the previous branch
+- git checkout -- <file> - to reset a file to latest version of it in the repo
+
+### Reset file to a previous version
+
+- git checkout <SHA-id> -- <file> - to reset a file to <SHA-id> version of it in the repo
+
+After running the command the <file> in version <SHA-id> will be in the staging area. You can use the `git diff --staged` to view the changes made after the <SHA-id> commit in the <file>. If you want to reset the changes then run the `git reset HEAD <file>` command. This will reset that file.
 
 ## Merge Conflicts
 
@@ -183,6 +190,20 @@ By default Git reset will run in `mixed mode`. Which means it will take us to pr
 Using the `--hard` flag will take you to the previous commit but would also delete the files and this is irreversible.
 
 - git reset --hard <SHA-id> - to go back to the commit with the SHA id and delete the files.
+
+Using the `--soft` flag will take you to the previous commit but would not delete the files and would not change anything in the staging area like the `mixded mode`.
+
+### Shortcuts
+
+- git reset HEAD~1 - to go back to the last commit
+- git reset HEAD~2 - to go back to the 2nd last commit
+- git reset HEAD~3 - to go back to the 3rd last commit
+- git reset HEAD~<n> - to go back to the nth last commit
+
+- git reset HEAD^ - to go back to the last commit
+- git reset HEAD^^ - to go back to the 2nd last commit
+- git reset HEAD^^^ - to go back to the 3rd last commit
+- git reset HEAD^^^(n-times) - to go back to the nth last commit
 
 ## Remember
 
@@ -339,12 +360,93 @@ git rebase -i --autosquash
 - git log --author='<author>' - to see the commits by the author
 - git log --since='<date>' - to see the commits since the date
 
+- git log --oneline - to see the commits in one line
+- git log --online -3 - to see the last 3 commits in one line
+- git log --since='<date>' --oneline - to see the commits since the date in one line
+- git log --since='1 week ago' --oneline - to see the commits since 1 week ago in one line
+- git log --until='<date>' --oneline - to see the commits until the date in one line
+- git log --grep='<pattern>' - to see the commits with the pattern in the commit message
+- git log <SHA-id-oldest>..<SHA-id-latest> - to see the commits between the SHA-ids
+
+### Formats
+
+- git log --format=online - to see the commits in one line
+- git log --format=short - for less details
+- git log --format=fuller - for more details the author
+- git log --format=email - email type logs
+
 ## git diff
 
 - git diff - to see the diff of the current commit
 - git diff <SHA-id> - to see the diff of the commit with the SHA id
 - git diff --staged - to see the diff of the staged files
 
+## git rm
+
+Not so good way of deleting files from the repo
+
+```bash
+# Delete the file you want to remove, this file might be available in the trash
+git status
+git rm <file>
+git commit -m "message"
+git status
+```
+
+Better way of deleting files from the repo.
+
+```bash
+# File removed using this way will be gone forever (can't be found in the trash)
+git rm <file>
+git status
+git commit -m "message"
+git status
+```
+
 ### Hooks
 
 This is useful when you want to run some commands before you commit and after you commit.
+
+## git clean
+
+It won't delete the files from the repo OR staging area but it will delete the untracked files.
+
+```bash
+git clean -n - to see the files that will be deleted
+git clean -f - to delete the files
+```
+
+It's not a ideal way of deleting files. It can be used for file that you may have added unintentionally. An ideal way to do this is by creating `.gitignore` file and writing file names which you want to ignore.
+
+### Ignoring not working
+
+If a file is committed to the repo and then it's added to .gitignore file then it will be ignored until changes are made to that file. As soon as you make changes in that file then .gitignore won't work and you will see file being modified in the `git status`. This doesn't work because the file is already committed to the repo.
+
+There are 2 ways of avoiding this:
+
+1. Delete that file and make a commit. Then it will stop tracking it
+2. Use the `git rm --cached <file>` command to remove the file from the repo and then commit. This will stop tracking of the file. This is a much better approach as the file is not deleted and you have also stopped its tracking
+
+### Git doesn't care about empty folders
+
+If you want to trach the file then put a random empty file in it and git will tract it. This is not a good approach. A better apprach it to create a `.gitkeep` file then git will track it and in turn it will trach the folder. There is no compulsion of using the filename as `.gitkeep`. You can use `.anything` (any dot file).
+
+## Team Management
+
+### Git list
+
+Pointing SHA-id can be done in a varity of ways:
+
+- Using the whole SHA-id
+- Using some part of the SHA-id (from starting, at least use 5-6 characters. If the project is big then grabbing the more number of characters is a good idea, maybe 10-12 characters)
+- Using the `~` character. For example, `git reset HEAD~3`
+- Using the `^` character. For example, `git reset HEAD^^^`
+
+But there are other ways too.
+
+**git ls-tree**
+
+- git ls-tree - to see all the available options
+- git ls-tree HEAD - to see the structure of the HEAD (it's history)
+- git ls-tree <branch-name> - to see the structure of the <branch-name> (it's history)
+- git ls-tree <SHA-id> - to see file structure of the <SHA-id>
