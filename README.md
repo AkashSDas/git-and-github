@@ -333,6 +333,18 @@ The above commands tells Git in advance that you're going to squash them. So whe
 git rebase -i --autosquash
 ```
 
+## git log
+
+- git log -n 2 - to see the last 2 commits
+- git log --author='<author>' - to see the commits by the author
+- git log --since='<date>' - to see the commits since the date
+
+## git diff
+
+- git diff - to see the diff of the current commit
+- git diff <SHA-id> - to see the diff of the commit with the SHA id
+- git diff --staged - to see the diff of the staged files
+
 ### Hooks
 
 This is useful when you want to run some commands before you commit and after you commit.
