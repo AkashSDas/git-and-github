@@ -6,3 +6,5 @@ console.log("now i'll win");
 console.log("i'll win everything i want and even more than that");
 
 console.log("some changes");
+
+console.log("Stashed 1");
