@@ -1,1 +1,7 @@
 .DS_Store
+*.ts
+!app.ts
+*.mp4
+node_modules
+assets/videos
+*.php
