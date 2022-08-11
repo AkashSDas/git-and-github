@@ -89,6 +89,24 @@ This will create a `remote/main` branch in the local repo. Merging the `remote/m
 
 There are different strategies of merging two branches. The simplest is the `Fast Forward` strategy.
 
+To avoid using the `Fast Forward` strategy and make a commit when you merge the branch use the following command:
+
+- git merge --no-ff <branch-name> - to merge a branch into the current branch without using the `Fast Forward` strategy
+
+This will open a editor where you can edit the commit message.
+
+If you want to use `Fast Foward` strategy only use the following command:
+
+- git merge --ff-only <branch-name> - This will merge only if the `Fast Forward` strategy can be used else will fail.
+
+If you're merging files and then you have some conflicts then you can resolve them by 3 ways:
+
+- Use the `--abort` flag to abort the merge and go back to the previous state
+- Manually go to files and keep code you want - make those changes, commit them and you're done
+- Use tools to solve conflicts
+  - Use `git mergetools` to see the list of available tools
+  - Use a tool like `git mergetool -tools=vimdiff` to solve the conflicts
+
 ## git pull
 
 Simpler way of mergin remote and local repos.
@@ -110,9 +128,14 @@ If your local code is modified in the same line of code as the code in the remot
 
 - git branch - to see the list of branches in the repo
 - git branch -M <branch-name> - to rename a branch
+- git branch -m <branch-name> - to rename a branch
 - git branch <branch-name> - to create a new branch
 - git branch -d <branch-name> - to delete a branch, safer option. Will delete only if it is not merged in the main branch
 - git branch -D <branch-name> - to delete a branch, danger option. Will delete no matter what is the status of the branch
+
+The useful `--merged` and `--no-merged` options can filter this list to branches that you have or have not yet merged into the branch you’re currently on. To see which branches are already merged into the branch you’re on, you can run git branch --merged:
+
+- git branch --merged
 
 ## git checkout
 
@@ -246,8 +269,20 @@ Save your work for later without commiting it. This is very useful when you work
 - git stash pop - to pop the stash and bring back your work
 - git stash list - to see the list of stashes
 - git stash clear - to clear all the stashes
+- git stash apply - to apply the stash
+
+When to use `pop` and `apply`:
+
+- Let's say you've a login functionality in the stash then you would want to use pop since you don't want it
+- Let's say you have footer functionality in the stash then you would want to use apply since you may want to use it in multiple web pages
+- It depends on what you want to achieve
 
 Be careful because you could end with merge conflicts when updating same lines of code in different stashes.
+
+To get output like `diff`:
+
+- git stash show <stash-id> - simple
+- git stash show -p <stash-id> - detailed
 
 ## git rebase
 
@@ -361,16 +396,18 @@ git rebase -i --autosquash
 - git log --since='<date>' - to see the commits since the date
 
 - git log --oneline - to see the commits in one line
-- git log --online -3 - to see the last 3 commits in one line
+- git log --oneline -3 - to see the last 3 commits in one line
 - git log --since='<date>' --oneline - to see the commits since the date in one line
 - git log --since='1 week ago' --oneline - to see the commits since 1 week ago in one line
 - git log --until='<date>' --oneline - to see the commits until the date in one line
 - git log --grep='<pattern>' - to see the commits with the pattern in the commit message
 - git log <SHA-id-oldest>..<SHA-id-latest> - to see the commits between the SHA-ids
 
+- git log --graph --oneline --all --decorate - pro way to see the commits in a graph
+
 ### Formats
 
-- git log --format=online - to see the commits in one line
+- git log --format=oneline - to see the commits in one line
 - git log --format=short - for less details
 - git log --format=fuller - for more details the author
 - git log --format=email - email type logs
